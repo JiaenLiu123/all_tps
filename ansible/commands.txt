@@ -1,0 +1,22 @@
+ansible all -m yum -a "name=httpd state=present" --private-key=/Users/liujiaen/Documents/Codes/ansible/id_rsa -u centos
+ansible all -m yum -a "name=httpd state=present" --private-key=/Users/liujiaen/Documents/Codes/ansible/id_rsa -u centos --become
+ansible all -m shell -a 'echo "<html><h1>Hello World</h1></html>" >> /var/www/html/index.html' --private-key=/Users/liujiaen/Documents/Codes/ansible/id_rsa -u centos --become
+
+ansible all -m service -a "name=httpd state=started" --private-key=/Users/liujiaen/Documents/Codes/ansible/id_rsa -u centos --become
+
+ssh -i /Users/liujiaen/Documents/Codes/ansible/id_rsa centos@jiaen.liu.takima.cloud
+
+ansible all -i inventories/setup.yml -m ping
+ansible all -i inventories/setup.yml -m setup -a "filter=ansible_distribution*"
+ansible all -i inventories/setup.yml -m yum -a "name=httpd state=absent" --become
+ansible-playbook -i inventories/setup.yml playbook.yml --syntax-check
+ansible-playbook -i inventories/setup.yml playbook.yml
+
+ansible-playbook -i inventories/setup.yml install_docker.yml --syntax-check
+/Users/liujiaen/Documents/Codes/ansible/id_rsa
+ansible-playbook -i inventories/setup.yml install_docker.yml
+
+ansible-galaxy init roles/docker
+
+ansible-playbook -i inventories/setup.yml app_deployment.yml --syntax-check
+ansible-playbook -i inventories/setup.yml app_deployment.yml

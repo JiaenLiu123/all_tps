@@ -1,0 +1,47 @@
+---
+# tasks file for roles/docker
+
+# tasks:
+  - name: Create network
+    docker_network:
+      name: mynetwork
+      driver: bridge
+  
+  # Launch database
+  - name: Launch database
+    docker_container:
+      name: postgresql
+      image: johojakusha/postgresql
+      networks:
+        - name: mynetwork
+      ports:
+        - 5432:5432
+      env:
+        POSTGRES_USER: usr
+        POSTGRES_PASSWORD: pwd
+        POSTGRES_DB: db
+      hostname: postgresql
+
+  # Launch backend app
+  - name: Launch backend app
+    docker_container:
+      name: docker_tp-backend-1
+      image: johojakusha/simple-api-student
+      links:
+        - postgresql:postgresql
+      networks:
+        - name: mynetwork
+      hostname: docker_tp-backend-1
+
+  # Launch frontend app
+  - name: Launch frontend app
+    docker_container:
+      name: frontend
+      image: johojakusha/httpd
+      ports:
+        - 8080:80
+      networks:
+        - name: mynetwork
+      links:
+        - docker_tp-backend-1:docker_tp-backend-1
+      state: started
