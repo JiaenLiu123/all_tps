@@ -1,0 +1,23 @@
+name: CI devops 2022 all
+on:
+  #to begin you want to launch this job in main and develop
+  workflow_run:
+    workflows: ["CI devops 2022 test"] # name of the workflow you want to trigger this job
+    branches: [ origin, main ]
+    types:
+      - completed
+
+jobs:
+  # Use the docker.yml file and the backend_test.yml file to do the CI/CD
+
+  
+  # only run this job when it is pushed to main branch
+  build_and_push_docker_image:
+    uses: ./.github/workflows/docker.yml
+    with:
+      back_end_path: '.'
+      database_path: './postgresql'
+      httpd_server_path: './http_server'
+    secrets:
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
