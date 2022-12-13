@@ -8,17 +8,17 @@ on:
       back_end_path:
         type: string
         description: 'Path to the backend'
-        default: './simple-api-student'
+        default: '/simple-api-student'
         required: true
       database_path:
         type: string
         description: 'Path to the database'
-        default: './postgresql'
+        default: '/postgresql'
         required: true
       httpd_server_path:
         type: string
         description: 'Path to the httpd server'
-        default: './http_server'
+        default: '/http_server'
         required: true
     secrets:
       DOCKERHUB_TOKEN:

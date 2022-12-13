@@ -15,9 +15,9 @@ jobs:
   build_and_push_docker_image:
     uses: ./.github/workflows/docker.yml
     with:
-      back_end_path: '.'
-      database_path: './postgresql'
-      httpd_server_path: './http_server'
+      back_end_path: '/simple-api-student'
+      database_path: '/postgresql'
+      httpd_server_path: '/http_server'
     secrets:
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}

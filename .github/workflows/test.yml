@@ -9,10 +9,10 @@ jobs:
   # Use the docker.yml file and the backend_test.yml file to do the CI/CD
 
   back_end_tests:
-    uses: ./.github/workflows/backend_test.yml
+    uses: /.github/workflows/backend_test.yml
     with:
       project_key: 'JiaenLiu123_simple-api-student'
       organization: 'jiaenliu123'
-      pom_path: './simple-api-student/pom.xml'
+      pom_path: '/simple-api-student/pom.xml'
     secrets:
       SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
